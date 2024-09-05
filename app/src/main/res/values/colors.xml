@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
+    <color name="shadow">#72000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="newblue">#89CFF0</color>
-    <color name="newpurple">#004FED</color>
+    <color name="blue1">#5f94d8</color>
+    <color name="blue2">#a8ddff</color>
+    <color name="blue3">#e7f3ff</color>
+    <color name="blue4">#edf4fe</color>
+    <color name="newpurple">#11366d</color>
     <color name="other">#FFFFFFFF</color>
 </resources>
