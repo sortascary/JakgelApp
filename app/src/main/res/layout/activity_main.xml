@@ -5,45 +5,40 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/newyellow"
+    android:background="@color/newblue"
     tools:context=".MainActivity">
 
-    <ImageView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="140dp"
-        android:background="@color/white"
+        android:background="@drawable/border"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp" />
+        android:layout_marginEnd="20dp">
 
-    <TextView
-        android:id="@+id/Saldo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Saldo: 5000"
-        android:textSize="30dp"
-        android:textColor="@color/newpurple"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <!-- Saldo TextView -->
+        <TextView
+            android:id="@+id/Saldo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Saldo: 5000"
+            android:textSize="30dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"/>
 
-    <TextView
-        android:id="@+id/nfcStatus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Waiting for NFC tag..."
-        android:textColor="@color/newpurple"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Saldo" />
-
-
+        <TextView
+            android:id="@+id/nfcStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Waiting for NFC tag..."
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:layout_below="@id/Saldo" />
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
