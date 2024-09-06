@@ -100,6 +100,16 @@
             android:textStyle="bold"
             android:fontFamily="@font/ayita_black" />
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@drawable/dash"
+            android:layout_below="@id/Saldo"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layerType="software"/>
+
         <TextView
             android:id="@+id/title2"
             android:layout_width="match_parent"
@@ -121,7 +131,7 @@
             android:layout_below="@id/title2"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="30dp"
-            android:layout_marginVertical="5dp"
+            android:layout_marginVertical="10dp"
             app:cardCornerRadius="20dp">
             <EditText
                 android:id="@+id/ammount"
@@ -139,17 +149,18 @@
         <Button
             android:id="@+id/topBtn"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="30dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginVertical="5dp"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/edit_container"
 
             android:text="Top Up"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:fontFamily="@font/ayita_black"
-            android:backgroundTint="#5F93D7"
-
-            android:layout_marginVertical="10dp"/>
+            android:textColor="@color/white"
+            android:background="@drawable/button"/>
 
 
         <TextView
