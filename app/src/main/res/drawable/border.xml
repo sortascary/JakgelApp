@@ -13,7 +13,7 @@
     <!-- Main content layer -->
     <item android:right="10dp" android:bottom="15dp">
         <shape android:shape="rectangle">
-            <solid android:color="@color/white"/>
+            <solid android:color="#E6F2FE"/>
             <corners android:radius="20dp"/>
         </shape>
     </item>
