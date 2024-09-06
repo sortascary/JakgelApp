@@ -93,10 +93,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Rp 5.000"
+            android:text="Rp 0"
             android:layout_below="@+id/title_saldo"
             android:textColor="@color/newpurple"
             android:textSize="30dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/ayita_black" />
+
+        <TextView
+            android:id="@+id/hintText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Tap Kartu Untuk Cek Saldo"
+            android:layout_below="@+id/Saldo"
+            android:textColor="@color/newpurple"
+            android:textSize="10dp"
             android:textStyle="bold"
             android:fontFamily="@font/ayita_black" />
 
@@ -104,9 +116,9 @@
             android:layout_width="match_parent"
             android:layout_height="5dp"
             android:background="@drawable/dash"
-            android:layout_below="@id/Saldo"
+            android:layout_below="@id/hintText"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginStart="10dp"
             android:layerType="software"/>
 
@@ -114,7 +126,7 @@
             android:id="@+id/title2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/Saldo"
+            android:layout_below="@id/hintText"
             android:textColor="@color/newpurple"
             android:text="Mau top up?"
             android:textSize="20dp"
@@ -141,13 +153,16 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
 
-                android:hint="Ketik nominal top updi sini"
+                android:hint="Ketik nominal top up di sini"
+                android:inputType="number"
                 android:textSize="15dp"
+                android:shadowColor="#00000000"
                 android:backgroundTint="#00000000"/>
         </androidx.cardview.widget.CardView>
 
         <Button
             android:id="@+id/topBtn"
+            android:onClick="WriteText"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginVertical="5dp"
