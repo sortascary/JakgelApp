@@ -8,23 +8,27 @@
     android:background="@color/blue2"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="150dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/relativeLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_default="spread"
         android:background="@color/blue1"/>
 
     <ImageView
         android:id="@+id/imageViewBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:scaleType="fitXY"
         android:src="@drawable/bottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_default="spread"
-        android:scaleType="fitXY"
-        />
+        app:layout_constraintWidth_default="spread" />
 
 
 
@@ -63,14 +67,14 @@
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="240dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/border"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView">
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
 
         <TextView
             android:id="@+id/title_saldo"
@@ -110,14 +114,51 @@
             android:layout_marginEnd="20dp"
             android:fontFamily="@font/ayita_black"/>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/edit_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title2"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginVertical="5dp"
+            app:cardCornerRadius="20dp">
+            <EditText
+                android:id="@+id/ammount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title2"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+
+                android:hint="Ketik nominal top updi sini"
+                android:textSize="15dp"
+                android:backgroundTint="#00000000"/>
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/topBtn"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_container"
+
+            android:text="Top Up"
+            android:textSize="20dp"
+            android:fontFamily="@font/ayita_black"
+            android:backgroundTint="#5F93D7"
+
+            android:layout_marginVertical="10dp"/>
+
 
         <TextView
             android:id="@+id/nfcStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/title2"
+            android:layout_below="@id/topBtn"
             android:gravity="center"
-            android:layout_marginTop="60dp"
+            android:layout_marginBottom="30dp"
             android:text="Waiting for NFC tag..."
             android:textSize="15dp" />
     </RelativeLayout>
