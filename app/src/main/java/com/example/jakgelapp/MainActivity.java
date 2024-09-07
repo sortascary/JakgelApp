@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 if (Ammount.getText().toString().isEmpty()) {
                     Toast.makeText(MainActivity.this, "Top up ammount is empty", Toast.LENGTH_SHORT).show();
                 } else {
+                    currentInquery = 0;
                     shouldWrite = true; // Set flag to indicate writing is needed
                     mDialog.setContentView(R.layout.popup);
                     mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -193,6 +194,7 @@ public class MainActivity extends AppCompatActivity {
             Ammount.setText("");
 
             Toast.makeText(this, "NFC tag written successfully!", Toast.LENGTH_SHORT).show();
+            hinText.setVisibility(View.INVISIBLE);
         } else {
             // The NFC tag is not in NDEF format
             Toast.makeText(this, "NFC tag is not NDEF compliant!", Toast.LENGTH_SHORT).show();
