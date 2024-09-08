@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.nfc.*;
 import android.nfc.tech.Ndef;
+import android.nfc.tech.NdefFormatable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 if (Ammount.getText().toString().isEmpty()) {
                     Toast.makeText(MainActivity.this, "Top up ammount is empty", Toast.LENGTH_SHORT).show();
                 } else {
+                    currentInquery = 0;
                     shouldWrite = true; // Set flag to indicate writing is needed
                     mDialog.setContentView(R.layout.popup);
                     mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -72,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
         // Handle intent if app is started via NFC tag scan
         if (getIntent() != null) {
             handleIntent(getIntent());
+        }else{
+            Saldo.setText("Rp 0");
         }
     }
 
@@ -101,16 +105,19 @@ public class MainActivity extends AppCompatActivity {
         if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction()) ||
                 NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction()) ||
                 NfcAdapter.ACTION_TECH_DISCOVERED.equals(intent.getAction())) {
-            processNdefMessage(intent);
-            nfcTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
 
+            nfcTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+            System.out.println(nfcTag);
             if (shouldWrite && nfcTag != null) {
+                processNdefMessage(intent, nfcTag, true);
                 try {
                     write(Ammount.getText().toString(), nfcTag);
                     shouldWrite = false; // Reset the flag after writing
                 } catch (Error | IOException | FormatException e) {
                     System.out.println(e.getMessage());
                 }
+            }else {
+                processNdefMessage(intent, nfcTag, false);
             }
 
             if (mDialog.isShowing()) {
@@ -119,8 +126,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void processNdefMessage(Intent intent) {
+    private void processNdefMessage(Intent intent, Tag tag, boolean isreading) {
         Parcelable[] rawMessages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+        if(NdefFormatable.get(tag) != null && isreading == false){
+            Toast.makeText(this, "Belum ada saldo", Toast.LENGTH_SHORT).show();
+            Saldo.setText("Rp 0");
+            return;
+        }
+        else if(NdefFormatable.get(tag) != null){
+            Saldo.setText("Rp 0");
+            return;
+        }
         if (rawMessages != null && rawMessages.length > 0) {
             NdefMessage ndefMessage = (NdefMessage) rawMessages[0];
             NdefRecord[] records = ndefMessage.getRecords();
@@ -133,11 +149,13 @@ public class MainActivity extends AppCompatActivity {
                         Saldo.setText("Rp "+ text);
                         hinText.setVisibility(View.INVISIBLE);
                     } catch (UnsupportedEncodingException e) {
+                        Saldo.setText("Rp 0");
                         e.printStackTrace();
                     }
                 }
             }
         } else {
+            Saldo.setText("Rp 0");
             Toast.makeText(this, "No NDEF messages found!", Toast.LENGTH_SHORT).show();
         }
     }
@@ -164,36 +182,32 @@ public class MainActivity extends AppCompatActivity {
 
         // Get an NDEF instance for the tag
         Ndef ndef = Ndef.get(tag);
+        NdefFormatable ndefFormatable = NdefFormatable.get(tag);
 
         if (ndef != null) {
-            // Open a connection to the tag
             ndef.connect();
 
-            // Check if the tag is writable
-            if (!ndef.isWritable()) {
-                Toast.makeText(this, "NFC tag is not writable!", Toast.LENGTH_SHORT).show();
-                ndef.close();
-                return;
-            }
-
-            // Check if the NDEF message size is too large for the tag
-            int size = message.toByteArray().length;
-            if (ndef.getMaxSize() < size) {
-                Toast.makeText(this, "NFC tag does not have enough space!", Toast.LENGTH_SHORT).show();
-                ndef.close();
-                return;
-            }
-
-            // Write the NDEF message to the tag
             ndef.writeNdefMessage(message);
             ndef.close();
 
-            // Update UI with the new balance
             Saldo.setText(String.format("Rp %d", currentInquery));
             Ammount.setText("");
 
             Toast.makeText(this, "NFC tag written successfully!", Toast.LENGTH_SHORT).show();
-        } else {
+            hinText.setVisibility(View.INVISIBLE);
+        } else if(ndefFormatable != null){
+            ndefFormatable.connect();
+
+            ndefFormatable.format(message);
+            ndefFormatable.close();
+
+            Saldo.setText(String.format("Rp %d", currentInquery));
+            Ammount.setText("");
+
+            Toast.makeText(this, "NFC tag written successfully!", Toast.LENGTH_SHORT).show();
+            hinText.setVisibility(View.INVISIBLE);
+        }
+        else {
             // The NFC tag is not in NDEF format
             Toast.makeText(this, "NFC tag is not NDEF compliant!", Toast.LENGTH_SHORT).show();
         }
