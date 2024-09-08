@@ -106,7 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Tap JAKGELANG untuk Cek Saldo"
+            android:text="Tap JAKGELANG Untuk Cek Saldo"
             android:layout_below="@+id/Saldo"
             android:textColor="@color/newpurple"
             android:textSize="10dp"
